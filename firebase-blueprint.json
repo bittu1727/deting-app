@@ -1,0 +1,68 @@
+{
+  "entities": {
+    "User": {
+      "path": "users/{userId}",
+      "description": "User profile with personal bio, preferences, and phone verification status",
+      "fields": {
+        "id": { "type": "string", "description": "User UID matching auth" },
+        "displayName": { "type": "string", "description": "Display name" },
+        "age": { "type": "number", "description": "User age" },
+        "bio": { "type": "string", "description": "Self-description bio" },
+        "occupation": { "type": "string", "description": "Job or profession" },
+        "interests": { "type": "array", "description": "List of interest tags" },
+        "photoUrl": { "type": "string", "description": "Avatar/photo URL" },
+        "isPhoneVerified": { "type": "boolean", "description": "Phone number OTP verification status" },
+        "verifiedPhoneNumber": { "type": "string", "description": "Masked or verified phone number" },
+        "gender": { "type": "string", "description": "User gender" },
+        "interestedIn": { "type": "string", "description": "Match preference" },
+        "createdAt": { "type": "timestamp", "description": "Creation timestamp" },
+        "updatedAt": { "type": "timestamp", "description": "Last update timestamp" }
+      }
+    },
+    "Swipe": {
+      "path": "users/{userId}/swipes/{targetUserId}",
+      "description": "Swipe action history (like or pass) recorded by the user",
+      "fields": {
+        "targetUserId": { "type": "string", "description": "Target profile user ID" },
+        "type": { "type": "string", "description": "Swipe type: like or pass" },
+        "createdAt": { "type": "timestamp", "description": "Timestamp of swipe" }
+      }
+    },
+    "Match": {
+      "path": "matches/{matchId}",
+      "description": "Established mutual match between two users",
+      "fields": {
+        "id": { "type": "string", "description": "Match identifier" },
+        "users": { "type": "array", "description": "List of the two user IDs" },
+        "matchedAt": { "type": "timestamp", "description": "When match occurred" }
+      }
+    },
+    "Conversation": {
+      "path": "conversations/{conversationId}",
+      "description": "1-on-1 chat conversation metadata",
+      "fields": {
+        "id": { "type": "string", "description": "Conversation ID" },
+        "participants": { "type": "array", "description": "List of participant user IDs" },
+        "lastMessage": { "type": "string", "description": "Text preview of last message" },
+        "lastMessageSenderId": { "type": "string", "description": "Sender UID of last message" },
+        "lastMessageTimestamp": { "type": "timestamp", "description": "Timestamp of last message" },
+        "unreadCount": { "type": "map", "description": "Unread message count keyed by userId" },
+        "createdAt": { "type": "timestamp", "description": "When conversation was started" }
+      }
+    },
+    "Message": {
+      "path": "conversations/{conversationId}/messages/{messageId}",
+      "description": "Individual chat message with read receipts",
+      "fields": {
+        "id": { "type": "string", "description": "Message ID" },
+        "conversationId": { "type": "string", "description": "Parent conversation ID" },
+        "senderId": { "type": "string", "description": "UID of the message sender" },
+        "receiverId": { "type": "string", "description": "UID of the message recipient" },
+        "text": { "type": "string", "description": "Message text content" },
+        "timestamp": { "type": "timestamp", "description": "Server timestamp of send time" },
+        "isRead": { "type": "boolean", "description": "Delivery/read receipt boolean" },
+        "readAt": { "type": "timestamp", "description": "Timestamp when receiver opened the message" }
+      }
+    }
+  }
+}
